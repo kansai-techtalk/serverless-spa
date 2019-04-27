@@ -12,6 +12,9 @@
 
 2014年にAWS Lambdaによって始まった
 
+### AWSによるサーバーレス構成
+
+![Serverless構成](000-serverless.jpg)
 
 ### サーバレス アーキテクチャに向くシステム
 
