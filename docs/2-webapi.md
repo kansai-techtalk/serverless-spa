@@ -412,6 +412,8 @@ https://github.com/claudiajs/example-projects/blob/master/dynamodb-example/index
 $ claudia create --region ap-northeast-1 --api-module index --policies policies --configure-db --profile claudia
 ```
 
+`claudia.json` が生成されます。
+
 以降、APIの更新は以下のコマンドを実行します。
 
 ```sh
@@ -430,13 +432,14 @@ $ claudia update
 
 ![Postman](005-postman.png)
 
-- YAMLをImport
-- テスト順を定義
+- swaggerからYAMLをExportしPostmanにImport
+- パラメータなどを定義
   - POST
   - GET
   - GET ALL
   - UPDATE
   - DELETE
+
 
 Test scripts | Postman Learning Center
 https://learning.getpostman.com/docs/postman/scripts/test_scripts/
