@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "1d6528d0-9380-4187-9805-8a549118f02a",
+		"name": "TodoAPI",
+		"description": "TodoAPI for React sample App.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "todo",
+			"item": [
+				{
+					"name": "Add a new todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "04fc8c79-c834-48f6-a46c-043345738598",
+								"exec": [
+									"pm.test(\"check status\", function () {",
+									"    var data = pm.response.json();",
+									"    pm.environment.set(\"todoId\", data.ID);",
+									"    ",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"check json\", function () {",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Content\": \"{{Content}}\"\n}"
+						},
+						"url": {
+							"raw": "https://lno4em2lgd.execute-api.ap-northeast-1.amazonaws.com/latest/todo",
+							"protocol": "https",
+							"host": [
+								"lno4em2lgd",
+								"execute-api",
+								"ap-northeast-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"latest",
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14bc5233-5feb-4cb3-9e15-03ab8d00938c",
+								"exec": [
+									"pm.test(\"check status\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check json\", function () {",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://lno4em2lgd.execute-api.ap-northeast-1.amazonaws.com/latest/todo",
+							"protocol": "https",
+							"host": [
+								"lno4em2lgd",
+								"execute-api",
+								"ap-northeast-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"latest",
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find todo by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "76501b29-ab3b-47e8-8646-1e2f3d41e7eb",
+								"exec": [
+									"pm.test(\"check status\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check json\", function () {",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://lno4em2lgd.execute-api.ap-northeast-1.amazonaws.com/latest/todo/:todoId",
+							"protocol": "https",
+							"host": [
+								"lno4em2lgd",
+								"execute-api",
+								"ap-northeast-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"latest",
+								"todo",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "{{todoId}}"
+								}
+							]
+						},
+						"description": "Returns a single todo"
+					},
+					"response": []
+				},
+				{
+					"name": "Updates a todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a5655f0-ec5d-42ac-b13f-6ffb3470e86f",
+								"exec": [
+									"pm.test(\"check status\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check json\", function () {",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Content\": \"{{Content}}2\",\n\t\"Done\": {{Done}}\n}"
+						},
+						"url": {
+							"raw": "https://lno4em2lgd.execute-api.ap-northeast-1.amazonaws.com/latest/todo/:todoId",
+							"protocol": "https",
+							"host": [
+								"lno4em2lgd",
+								"execute-api",
+								"ap-northeast-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"latest",
+								"todo",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "{{todoId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletes a todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "744c8881-e61f-4ddf-b43c-654d09b73747",
+								"exec": [
+									"pm.test(\"check status\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://lno4em2lgd.execute-api.ap-northeast-1.amazonaws.com/latest/todo/:todoId",
+							"protocol": "https",
+							"host": [
+								"lno4em2lgd",
+								"execute-api",
+								"ap-northeast-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"latest",
+								"todo",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "{{todoId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for todo"
+		}
+	]
+}
