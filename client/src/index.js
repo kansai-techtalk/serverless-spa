@@ -3,13 +3,22 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
-import App from './App';
+import { HashRouter as Router } from 'react-router-dom';
+import createSagaMiddleware from 'redux-saga';
+import createHistory from 'history/createHashHistory';
+import App from './containers/App';
 import reducer from './reducers';
+import rootSaga from './sagas';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-// redux-loggerをセット
-const middlewares = [logger];
+// saga
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [
+  logger,
+  sagaMiddleware,
+];
 
 // storeを作成
 const store = createStore(
@@ -17,10 +26,15 @@ const store = createStore(
   applyMiddleware(...middlewares),
 );
 
+const history = createHistory();
+sagaMiddleware.run(rootSaga, { history });
+
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Router history={history}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Router>,
   document.getElementById('root'),
 );
 

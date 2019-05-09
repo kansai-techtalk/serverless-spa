@@ -1,3 +1,16 @@
+// API共通
+export const API_REQUESTED = 'API_REQUESTED';
+export const API_SUCCEEDED = 'API_SUCCEEDED';
+export const API_FAILED = 'API_FAILED';
+
+// インジケーターの表示切り替え
+export const INDICATOR_START = 'INDICATOR_START';
+export const INDICATOR_STOP = 'INDICATOR_STOP';
+
+// ログイン
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';
+
 // TODO API
 // get one
 export const TODO_GET_ONE = 'TODO_GET_ONE';
@@ -19,11 +32,6 @@ export const TODO_UPDATE_FAILED = 'TODO_UPDATE_FAILED';
 export const TODO_DELETE = 'TODO_DELETE';
 export const TODO_DELETE_SUCCEEDED = 'TODO_DELETE_SUCCEEDED';
 export const TODO_DELETE_FAILED = 'TODO_DELETE_FAILED';
-
-// API共通
-export const API_REQUESTED = 'API_REQUESTED';
-export const API_SUCCEEDED = 'API_SUCCEEDED';
-export const API_FAILED = 'API_FAILED';
 
 // action creator
 
@@ -51,3 +59,14 @@ export const deleteTodo = payload => ({
   type: TODO_DELETE,
   payload,
 });
+
+export const signIn = payload => ({
+  type: SIGN_IN,
+  payload,
+});
+
+export const signOut = payload => ({
+  type: SIGN_OUT,
+  payload,
+});
+
