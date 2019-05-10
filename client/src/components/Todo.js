@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 import { Delete, Edit } from '@material-ui/icons';
+import { toLocaleString } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -83,7 +84,10 @@ class Todo extends Component {
         <ListItemText
           primary={Content}
           secondary={(
-            <Typography>{CreatedAt} {UpdatedAt}</Typography>
+            <Typography>
+              作成日時: {toLocaleString(CreatedAt)}
+              更新日時: {toLocaleString(UpdatedAt)}
+            </Typography>
           )}
         />
         <ListItemSecondaryAction>

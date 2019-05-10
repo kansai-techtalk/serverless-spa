@@ -101,7 +101,8 @@ class Main extends Component {
           <div className={classes.content}>
             <Switch>
               <Route exact path="/" component={TodoList} />
-              <Route path="/edit" component={TodoEdit} />
+              <Route exact path="/create" component={TodoEdit} />
+              <Route path="/edit/:id" component={TodoEdit} />
             </Switch>
           </div>
           {/* インジケーター */}

@@ -82,7 +82,7 @@ class TodoList extends Component {
             variant="contained"
             color="primary"
             component={Link}
-            to="/edit"
+            to="/create"
           >
             Create
           </Button>

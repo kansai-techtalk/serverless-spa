@@ -166,10 +166,6 @@ APIに必要なパッケージをインストールします。
 $ npm install --save aws-sdk uuid claudia-api-builder
 ```
 
-`index.js` を作成し、APIを実装していきます。
-
-#### 共通部分
-
 [claudia-api-builder](https://www.npmjs.com/package/claudia-api-builder)
 を使って `API Gateway` と `Lambda` の処理を実装していきます。
 
@@ -177,6 +173,9 @@ AWSの各サービス (今回は `DynamoDB`) へのアクセスは [aws-sdk](htt
 
 `uuid` はIDの採番に使用します。
 
+#### 共通部分
+
+`index.js` を作成し、APIを実装していきます。
 
 ```js
 const ApiBuilder = require('claudia-api-builder');
