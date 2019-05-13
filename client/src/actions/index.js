@@ -7,6 +7,10 @@ export const API_FAILED = 'API_FAILED';
 export const INDICATOR_START = 'INDICATOR_START';
 export const INDICATOR_STOP = 'INDICATOR_STOP';
 
+// 画面遷移
+export const REDIRECT_SCREEN_REQUEST = 'REDIRECT_SCREEN_REQUEST';
+export const REDIRECT_SCREEN_FINISHED = 'REDIRECT_SCREEN_FINISHED';
+
 // ログイン
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
@@ -70,3 +74,7 @@ export const signOut = payload => ({
   payload,
 });
 
+export const redirectScreenFinished = payload => ({
+  type: REDIRECT_SCREEN_FINISHED,
+  payload,
+});

@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import { HashRouter as Router } from 'react-router-dom';
 import createSagaMiddleware from 'redux-saga';
-import createHistory from 'history/createHashHistory';
 import App from './containers/App';
 import reducer from './reducers';
 import rootSaga from './sagas';
@@ -26,11 +25,10 @@ const store = createStore(
   applyMiddleware(...middlewares),
 );
 
-const history = createHistory();
-sagaMiddleware.run(rootSaga, { history });
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-  <Router history={history}>
+  <Router>
     <Provider store={store}>
       <App />
     </Provider>

@@ -2,6 +2,7 @@ import { fork, put, call, select, take, takeLatest } from 'redux-saga/effects';
 import PathParser from 'path-parser';
 import {
   INDICATOR_START, INDICATOR_STOP,
+  REDIRECT_SCREEN_REQUEST,
   TODO_GET_ALL,
   TODO_GET_ONE,
   TODO_CREATE, TODO_CREATE_SUCCEEDED, TODO_CREATE_FAILED,
@@ -174,10 +175,6 @@ function* listTodoRequest(action) {
   yield fork(handleFetch, type, params);
 }
 
-function* listTodo() {
-  yield takeLatest(TODO_GET_ALL, listTodoRequest);
-}
-
 /**
  * 1件取得
  * @param {string} action.type
@@ -197,16 +194,11 @@ function* getTodoRequest(action) {
   yield fork(handleFetch, type, params);
 }
 
-function* getTodo() {
-  yield takeLatest(TODO_GET_ONE, getTodoRequest);
-}
-
 /**
  * 作成
- * @param {object} context
  * @param {object} action
  */
-function* createTodoRequest(context, action) {
+function* createTodoRequest(action) {
   const { type, payload } = action;
 
   // パラメータ組み立て
@@ -226,12 +218,11 @@ function* createTodoRequest(context, action) {
   // 成功時
   if (data) {
     // 画面遷移 - 更新画面に遷移
-    yield call(context.history.push, `/edit/${data.id}`);
+    yield put({
+      type: REDIRECT_SCREEN_REQUEST,
+      payload: { path: `/edit/${data.ID}` },
+    });
   }
-}
-
-function* createTodo(context) {
-  yield takeLatest(TODO_CREATE, createTodoRequest, context);
 }
 
 /**
@@ -262,16 +253,11 @@ function* updateTodoRequest(action) {
   }
 }
 
-function* updateTodo() {
-  yield takeLatest(TODO_UPDATE, updateTodoRequest);
-}
-
 /**
  * 削除
- * @param {object} context
  * @param {object} action
  */
-function* deleteTodoRequest(context, action) {
+function* deleteTodoRequest(action) {
   const { type, payload } = action;
 
   // パラメータ組み立て
@@ -290,19 +276,15 @@ function* deleteTodoRequest(context, action) {
 
   // 成功時
   if (!error) {
-    // 画面遷移 - リストに戻る
-    yield call(context.history.push, '/');
+    // リスト再取得
+    yield put({ type: TODO_GET_ALL });
   }
 }
 
-function* deleteTodo(context) {
-  yield takeLatest(TODO_DELETE, deleteTodoRequest, context);
-}
-
 export default [
-  listTodo,
-  getTodo,
-  createTodo,
-  updateTodo,
-  deleteTodo,
+  takeLatest(TODO_GET_ALL, listTodoRequest),
+  takeLatest(TODO_GET_ONE, getTodoRequest),
+  takeLatest(TODO_CREATE, createTodoRequest),
+  takeLatest(TODO_UPDATE, updateTodoRequest),
+  takeLatest(TODO_DELETE, deleteTodoRequest),
 ];

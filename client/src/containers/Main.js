@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import {
+  Route, Switch, NavLink,
+  withRouter,
+} from 'react-router-dom';
 import {
   AppBar, Toolbar, Typography,
   CssBaseline, Button,
@@ -11,7 +14,7 @@ import { AccountCircle } from '@material-ui/icons';
 import TodoList from './screens/TodoList';
 import TodoEdit from './screens/TodoEdit';
 import Indicator from '../components/Indicator';
-import { signOut } from '../actions';
+import { signOut, redirectScreenFinished } from '../actions';
 
 const styles = theme => ({
   root: {
@@ -47,7 +50,46 @@ const styles = theme => ({
 });
 
 class Main extends Component {
+  // 連打防止フラグ
   blocked = false;
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      screen: {
+        redirectRequesting: currentRequesting,
+      },
+    } = this.props;
+    const {
+      history,
+      screen: {
+        redirectRequesting: nextRequesting,
+        redirectPath: nextRedirectPath,
+      },
+      finishRedirect,
+    } = nextProps;
+
+    if (!currentRequesting && nextRequesting) {
+      // currentRequesting = false, nextRequesting = true
+      // -> redirect要求が投げられた
+      finishRedirect();
+      history.push(nextRedirectPath);
+    }
+  }
+
+  shouldComponentUpdate() {
+    const {
+      screen: {
+        redirectRequesting,
+      },
+    } = this.props;
+
+    // redirect中は描画しない
+    if (redirectRequesting) {
+      return false;
+    }
+
+    return true;
+  }
 
   /**
    * サインアウト処理
@@ -115,13 +157,21 @@ class Main extends Component {
 
 Main.propTypes = {
   classes: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
   // redux
+  screen: PropTypes.shape().isRequired,
   signOut: PropTypes.func.isRequired,
+  finishRedirect: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  screen: state.screen,
+});
 const mapDispatchToProps = dispatch => ({
   signOut: payload => dispatch(signOut(payload)),
+  finishRedirect: () => dispatch(redirectScreenFinished()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Main));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Main))
+);
