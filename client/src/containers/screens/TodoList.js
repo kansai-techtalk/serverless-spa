@@ -88,7 +88,13 @@ class TodoList extends Component {
           </Button>
         </header>
         <List className={classes.list}>
-          {list && list.map(todo => (
+          {list && list
+          .sort((a, b) => {
+            const aValue = new Date(a.CreatedAt);
+            const bValue = new Date(b.CreatedAt);
+            return aValue - bValue;
+          })
+          .map(todo => (
             <Todo
               key={todo.ID}
               {...todo}
