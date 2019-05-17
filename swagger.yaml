@@ -1,144 +1,145 @@
+---
 swagger: "2.0"
 info:
-  description: "TodoAPI for React sample App."
-  version: "1.0.0"
-  title: "TodoAPI"
+  description: TodoAPI for React sample App.
+  version: "1"
+  title: TodoAPI
+host: virtserver.swaggerhub.com
+basePath: /Kazunori-Kimura/TodoAPI/1
 schemes:
-- "http"
+- https
 paths:
   /todo:
     get:
-      summary: "Get all todos"
+      summary: Get all todos
       description: ""
-      operationId: "getTodos"
-      consumes: 
-      - "application/json"
-      produces: 
-      - "application/json"
+      operationId: getTodos
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
       responses:
         200:
-          description: "successful operation"
+          description: successful operation
           schema:
-            type: "array"
+            type: array
             items:
-              $ref: "#/definitions/Todo"
+              $ref: '#/definitions/Todo'
         404:
-          description: "Todo not found"
+          description: Todo not found
     post:
-      summary: "Add a new todo"
+      summary: Add a new todo
       description: ""
-      operationId: "addTodo"
+      operationId: addTodo
       consumes:
-      - "application/json"
+      - application/json
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Todo object that needs to be added to the db"
+      - in: body
+        name: body
+        description: Todo object that needs to be added to the db
         required: true
         schema:
-          $ref: "#/definitions/TodoPostParameters"
+          $ref: '#/definitions/TodoPostParameters'
       responses:
         201:
-          description: "Created"
+          description: Created
           schema:
-            $ref: "#/definitions/Todo"
+            $ref: '#/definitions/Todo'
         400:
-          description: "Bad Request"
-  /todo/{todoId}:
+          description: Bad Request
+  /todo/{ID}:
     get:
-      summary: "Find todo by ID"
-      description: "Returns a single todo"
-      operationId: "getTodoById"
+      summary: Find todo by ID
+      description: Returns a single todo
+      operationId: getTodoById
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "todoId"
-        in: "path"
-        description: "ID of pet to return"
+      - name: ID
+        in: path
+        description: ID of pet to return
         required: true
-        type: "integer"
-        format: "int64"
+        type: string
       responses:
         200:
-          description: "OK"
+          description: OK
           schema:
-            $ref: "#/definitions/Todo"
+            $ref: '#/definitions/Todo'
         400:
-          description: "Invalid ID supplied"
+          description: Invalid ID supplied
         404:
-          description: "Todo not found"
+          description: Todo not found
     put:
-      summary: "Updates a todo"
+      summary: Updates a todo
       description: ""
-      operationId: "updateTodoWithForm"
+      operationId: updateTodoWithForm
       consumes:
-      - "application/x-www-form-urlencoded"
+      - application/x-www-form-urlencoded
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "todoId"
-        in: "path"
-        description: "ID of todo that needs to be updated"
+      - name: ID
+        in: path
+        description: ID of todo that needs to be updated
         required: true
-        type: "integer"
-        format: "int64"
-      - name: "title"
-        in: "formData"
-        description: "Updated title of the todo"
+        type: string
+      - name: Content
+        in: formData
+        description: Updated title of the todo
         required: true
-        type: "string"
-      - name: "done"
-        in: "formData"
-        description: "Updated status of the todo"
+        type: string
+      - name: Done
+        in: formData
+        description: Updated status of the todo
         required: false
-        type: "boolean"
+        type: boolean
       responses:
         200:
-          description: "OK"
+          description: OK
           schema:
-            $ref: "#/definitions/Todo"
+            $ref: '#/definitions/Todo'
         400:
-          description: "Bad Request"
+          description: Bad Request
     delete:
-      summary: "Deletes a todo"
+      summary: Deletes a todo
       description: ""
-      operationId: "deleteTodo"
+      operationId: deleteTodo
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "todoId"
-        in: "path"
-        description: "Todo id to delete"
+      - name: ID
+        in: path
+        description: Todo id to delete
         required: true
-        type: "integer"
-        format: "int64"
+        type: string
       responses:
         204:
-          description: "No Content"
+          description: No Content
         400:
-          description: "Invalid ID supplied"
+          description: Invalid ID supplied
         404:
-          description: "Todo not found"
+          description: Todo not found
 definitions:
   Todo:
     type: object
     properties:
-      id:
-        type: number
-      title:
+      ID:
         type: string
-      body:
+      Content:
         type: string
-      done:
+      Done:
         type: boolean
+      CreatedAt:
+        type: string
+      UpdatedAt:
+        type: string
   TodoPostParameters:
     type: object
     properties:
-      title:
+      Content:
         type: string
-      body:
-        type: string
-      done:
+      Done:
         type: boolean
