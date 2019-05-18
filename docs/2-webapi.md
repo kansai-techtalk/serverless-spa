@@ -163,6 +163,16 @@ aws_secret_access_key = YOUR_ACCESS_SECRET
 $ npm install -g claudia
 ```
 
+### プロジェクトの作成
+
+Node.jsのプロジェクトを作成します。
+
+```sh
+$ mkdir serverless-sample
+$ cd serverless-sample
+$ npm init -y
+```
+
 ### CRUDの実装
 
 APIに必要なパッケージをインストールします。
@@ -258,6 +268,23 @@ api.post(
   }
 );
 ```
+
+##### Promiseとは
+
+> Promiseは非同期処理の最終的な完了もしくは失敗を表すオブジェクトです。
+> 
+> [Promiseを使う - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Using_promises)
+
+##### async/await
+
+> async function 宣言は、 AsyncFunction オブジェクトを返す 非同期関数 を定義します。非同期関数は非同期でイベントループを介して実行され、暗黙的にPromiseを返します。
+> なおコードのシンタックス及び構造は通常の同期関数と非常に似たものになります。
+> 
+> [async function - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function)
+
+> await 演算子は、async function によって Promise が返されるのを待機するために使用します。
+> 
+> [await - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/await)
 
 #### Read (全件取得)
 
@@ -384,6 +411,7 @@ module.exports = api;
 example-projects/index.js at master · claudiajs/example-projects
 https://github.com/claudiajs/example-projects/blob/master/dynamodb-example/index.js
 
+
 #### DynamoDBへのアクセス権限設定
 
 `policies/access-dynamodb.json` を作成、以下のようにアクセス権限を設定します。
@@ -439,11 +467,18 @@ $ claudia update
 - swaggerからYAMLをExportしPostmanにImport
 - パラメータなどを定義
   - POST
-  - GET
   - GET ALL
+  - GET
   - UPDATE
   - DELETE
 
 
 Test scripts | Postman Learning Center
 https://learning.getpostman.com/docs/postman/scripts/test_scripts/
+
+- `Test` タブにJavaScriptを書くことでユニットテストが可能。
+- `Environment` に変数を定義することで各テスト間で値の受け渡しなどが可能。
+
+---
+
+以上で、WebAPIの作成は完了です。
