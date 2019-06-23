@@ -9,6 +9,8 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 // DynamoDBテーブル名
 const TableName = 'Todo';
 
+const authorizationType = 'AWS_IAM';
+
 // GET: /todo
 api.get('/todo', () => {
   const params = {
@@ -20,7 +22,7 @@ api.get('/todo', () => {
     // responseから項目を取得して返す
     return response.Items;
   });
-}); // response codeを指定しなければ `200 OK`
+}, { authorizationType }); // response codeを指定しなければ `200 OK`
 
 // GET: /todo/{id}
 api.get('/todo/{id}', (request) => {
@@ -38,7 +40,7 @@ api.get('/todo/{id}', (request) => {
     // responseから項目を取得して返す
     return response.Item;
   });
-});
+}, { authorizationType });
 
 // POST: /todo
 api.post(
@@ -78,7 +80,8 @@ api.post(
     return res.Item;
   },
   {
-    success: 201 // response status code: 201 Created
+    success: 201, // response status code: 201 Created
+    authorizationType
   }
 );
 
@@ -121,7 +124,7 @@ api.put('/todo/{id}', async (request) => {
   }).promise();
 
   return response.Item;
-});
+}, { authorizationType });
 
 // DELETE: /todo/{id}
 api.delete('/todo/{id}', (request) => {
@@ -139,6 +142,6 @@ api.delete('/todo/{id}', (request) => {
     // 204 No Content
     return new ApiBuilder.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 204);
   });
-});
+}, { authorizationType });
 
 module.exports = api;
