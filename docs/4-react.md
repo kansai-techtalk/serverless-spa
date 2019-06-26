@@ -1,6 +1,16 @@
-# サーバーレスSPAの構築 -SPA編-
+# 4. サーバーレスSPAの構築 -SPA編-
 
 見た目を整理してアプリケーションっぽくする
+
+## Reactとは
+
+> ユーザインターフェース構築のための JavaScript ライブラリ
+>
+> *[React](https://ja.reactjs.org/)*
+
+## 実装デモ
+
+### ライブラリの追加
 
 以下のライブラリを追加する
 
@@ -10,9 +20,13 @@ $ npm install --save classnames
 
 classnames: 動的にclassの指定を組み立てられる
 
-## Todoコンポーネントの作成
+### Todoコンポーネントの作成
+
+![](./006-react.png)
 
 `components/Todo.js`
+
+ひとつのTodoを表示・編集するコンポーネントを作成する
 
 ```js
 import React, { Component, Fragment } from 'react';
@@ -238,6 +252,10 @@ div.content {
 ```
 
 `App.js`
+
+- APIの呼び出し処理を実装
+- 登録フォームの実装
+- Todoコンポーネントを一覧表示
 
 ```js
 import React, { Component } from 'react';
@@ -509,7 +527,3 @@ $ npm start
 ```sh
 $ amplify publish
 ```
-
----
-
-

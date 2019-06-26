@@ -1,4 +1,4 @@
-# 3. サーバーレスSPAの構築 ~SPA編~
+# 3. サーバーレスSPAの構築 -認証編-
 
 ## Amazon Cognitoとは
 
@@ -54,9 +54,9 @@ This would update/create the AWS Profile in your local machine
 Successfully set up the new user.
 ```
 
-## SPAの作成
+## 実装デモ
 
-[React & React Native](https://aws-amplify.github.io/docs/js/react)
+参考: [React & React Native](https://aws-amplify.github.io/docs/js/react)
 
 ### React & amplifyの導入
 
@@ -177,9 +177,7 @@ Reactアプリに認証機能が実装される
 
 ![](010-react-app.png)
 
-## APIの認証設定
-
-### APIの修正
+### APIの認証設定
 
 Reactアプリで認証した場合のみAPIが応答を返すように設定する
 
@@ -205,11 +203,11 @@ $ claudia update --profile claudia
   - `ExecuteAPI`
   - ひとまずリソースは何でもOKにする
 
-### 動作確認
 
-リクエストに失敗することを確認する
+ここまでで、POSTMANなりブラウザからのリクエストが失敗することを確認する
 
-## Reactアプリの改修
+
+### Reactアプリの改修
 
 ボタンが押された際にリクエストが成功することを確認する
 

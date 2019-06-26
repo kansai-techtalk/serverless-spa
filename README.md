@@ -13,10 +13,10 @@
   - Amazon DynamoDB
   - Claudia.js
   - 実装デモ
-3. サーバーレスSPAの構築 -SPA編-
-  - Amazon S3とCloudFront
-  - React + redux + redux-saga + react-router + Material UI
+3. サーバーレスSPAの構築 -認証編-
+  - Amazon Cognitoとは
+  - aws-amplify
   - 実装デモ
-4. サーバーレスSPAの構築 -認証編-
-  - Amazon Cognito
+4. サーバーレスSPAの構築 -実装編-
+  - Reactとは
   - 実装デモ
