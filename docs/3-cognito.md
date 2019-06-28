@@ -100,8 +100,18 @@ Your project has been successfully initialized and connected to the cloud!
 
 S3へのホストを行う
 
+![](./000-serverless.jpg)
+
 ```sh
 $ amplify add hosting
+? Select the environment setup: DEV (S3 only with HTTP)
+? hosting bucket name app-20190628142549-hostingbucket
+? index doc for the website index.html
+? error doc for the website index.html
+
+You can now publish your app using the following command:
+Command: amplify publish
+
 ```
 
 > You would be prompted next to select the environment setup. Select DEV (S3 only with HTTP) for quick prototyping and testing, and once production ready you could run the amplify update hosting command to publish your app to Amazon CloudFront (a CDN service).
@@ -181,6 +191,8 @@ Reactアプリに認証機能が実装される
 
 Reactアプリで認証した場合のみAPIが応答を返すように設定する
 
+![](./000-serverless.jpg)
+
 `Claudia.js` で認証機能を設定する
 
 各APIの末尾に以下のパラメータを追加
@@ -196,6 +208,8 @@ $ claudia update --profile claudia
 ```
 
 ### IAMロール設定
+
+amplifyで生成したcognitoで認証したユーザーがAPIを実行できるように権限を設定する
 
 - AWSコンソールで `マイセキュリティ資格情報` -> ロールを選択
 - `cognito-sample-production-20190609152633-authRole` を選択
@@ -215,7 +229,6 @@ $ claudia update --profile claudia
 import React, { Component } from 'react';
 import Amplify, { API } from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
-import Todo from './Components/Todo';
 
 import './App.css';
 
@@ -245,10 +258,6 @@ class App extends Component {
   handleClick = () => {
     API.get('api', '/todo').then((res) => {
       console.log(res);
-
-      this.setState({
-        todos: [...res],
-      });
     }).catch (error => {
       console.log(error);
     });
@@ -265,6 +274,12 @@ class App extends Component {
 
 export default withAuthenticator(App, true);
 ```
+
+`withAuthenticator` のようにコンポーネントをラップして機能を追加する仕組みを *HOC* という
+
+> [高階 (Higher-Order) コンポーネント – React](https://ja.reactjs.org/docs/higher-order-components.html)
+> 
+> 高階コンポーネント (higher-order component; HOC) はコンポーネントのロジックを再利用するための React における応用テクニックです。HOC それ自体は React の API の一部ではありません。HOC は、React のコンポジションの性質から生まれる設計パターンです。
 
 `publish` して動作確認
 

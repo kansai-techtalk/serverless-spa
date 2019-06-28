@@ -1,0 +1,33 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 900px;
+  margin: 10px;
+}
+
+.text {
+  flex: 1;
+  height: 60px;
+}
+
+.actions {
+  width: 100px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions button {
+  width: 80px;
+}

@@ -8,6 +8,8 @@
 >
 > *[React](https://ja.reactjs.org/)*
 
+![](./006-react.png)
+
 ## 実装デモ
 
 ### ライブラリの追加
@@ -15,14 +17,18 @@
 以下のライブラリを追加する
 
 ```sh
-$ npm install --save classnames
+$ npm install --save classnames prop-types
 ```
 
 classnames: 動的にclassの指定を組み立てられる
+prop-types: props の型チェックを行う
+
+> PropTypes は受け取ったデータが有効かどうかを確認するために使用できる種々のバリデーターをエクスポートしています。上記の例では、PropTypes.string を使用しています。無効な値がプロパティに与えられた場合、JavaScript のコンソールに警告文が出力されます。パフォーマンス上の理由から、propTypes のチェックは開発モードでのみ行われます。
+> 
+> [PropTypes を用いた型チェック – React](https://ja.reactjs.org/docs/typechecking-with-proptypes.html)
+
 
 ### Todoコンポーネントの作成
-
-![](./006-react.png)
 
 `components/Todo.js`
 
@@ -30,6 +36,7 @@ classnames: 動的にclassの指定を組み立てられる
 
 ```js
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import './Todo.css';
@@ -140,7 +147,13 @@ class Todo extends Component {
         edit,
       })}>
         <label className="checkbox">
-          <input type="checkbox" name="Done" checked={Done} onChange={this.handleCheck} /> Done
+          <input
+            type="checkbox"
+            name="Done"
+            checked={Done}
+            onChange={this.handleCheck}
+          />
+          Done
         </label>
         <div className="main">
           <div className="header">
@@ -152,10 +165,9 @@ class Todo extends Component {
             <textarea
               className="content"
               name="Content"
+              value={Content}
               onChange={this.handleChange}
-            >
-              {Content}
-            </textarea>
+            />
           ) : (
             <div className="content">{Content}</div>
           )}
@@ -182,7 +194,20 @@ Todo.defaultProps = {
   edit: false,
 };
 
+Todo.propTypes = {
+  ID: PropTypes.string.isRequired,
+  Content: PropTypes.string.isRequired,
+  Done: PropTypes.bool.isRequired,
+  CreatedAt: PropTypes.string.isRequired,
+  UpdatedAt: PropTypes.string.isRequired,
+  edit: PropTypes.bool,
+  onUpdate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+};
+
 export default Todo;
+
 ```
 
 `components/Todo.css`
@@ -261,27 +286,23 @@ div.content {
 import React, { Component } from 'react';
 import Amplify, { API } from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
-import Todo from './Components/Todo';
+import Todo from './components/Todo';
 
 import './App.css';
 
 Amplify.configure({
   Auth: {
-      // REQUIRED - Amazon Cognito Identity Pool ID
-      identityPoolId: 'ap-northeast-1:',
-      // REQUIRED - Amazon Cognito Region
-      region: 'ap-northeast-1', 
-      // OPTIONAL - Amazon Cognito User Pool ID
-      userPoolId: 'ap-northeast-1_', 
-      // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-      userPoolWebClientId: '',
+    identityPoolId: 'ap-northeast-1:7a1e09c7-282a-44a3-be49-bac7933106f9',
+    region: 'ap-northeast-1',
+    userPoolId: 'ap-northeast-1_KpjCfGb4O',
+    userPoolWebClientId: '7nocohtf7auj70j7dumuqdpj3o',
   },
   API: {
     endpoints: [
       {
         name: 'api',
         endpoint: 'https://lno4em2lgd.execute-api.ap-northeast-1.amazonaws.com/latest',
-        region: 'ap-northeast-1'
+        region: 'ap-northeast-1',
       }
     ]
   }
@@ -440,8 +461,7 @@ class App extends Component {
             className="text"
             value={Content}
             onChange={this.handleChenge}
-          >  
-          </textarea>
+          />
           <div className="actions">
             <button
               type="button"
@@ -514,15 +534,13 @@ export default withAuthenticator(App, true);
 }
 ```
 
-不要なファイルを削除
-
-動作確認
+### 動作確認
 
 ```sh
 $ npm start
 ```
 
-アップロード
+### アップロード
 
 ```sh
 $ amplify publish

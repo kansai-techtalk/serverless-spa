@@ -1,0 +1,61 @@
+.Todo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 900px;
+  padding: 16px;
+}
+
+.checkbox {
+  width: 100px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  font-size: x-small;
+  color: #999999;
+}
+
+div.content {
+  flex: 1;
+  text-align: left;
+
+  font-size: large;
+  color: #333333;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+}
+
+.actions button {
+  width: 120px;
+}
+
+.Done {
+  background-color: #cccccc;
+}
+
+.edit {
+  background-color: #d4d8fd;
+}
